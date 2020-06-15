@@ -7,10 +7,14 @@ project(matt_phidget_test)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
+
+#find_package(phidgets_api REQUIRED)
+
 find_package(catkin REQUIRED COMPONENTS
-  roscpp.
+  roscpp
   rospy
   std_msgs
+  phidgets_api
 )
 
 ## System dependencies are found with CMake's conventions
@@ -103,10 +107,10 @@ find_package(catkin REQUIRED COMPONENTS
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES matt_phidget_test
-#  CATKIN_DEPENDS roscpp. rospy std_msgs
-#  DEPENDS system_lib
+  INCLUDE_DIRS include
+  LIBRARIES matt_phidget_test
+  CATKIN_DEPENDS roscpp rospy std_msgs phidgets_api
+  # DEPENDS system_lib
 )
 
 ###########
@@ -134,6 +138,16 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/matt_phidget_test_node.cpp)
+
+
+
+
+add_executable(test_1 src/test_1.cpp)
+target_link_libraries(test_1 ${catkin_LIBRARIES})
+add_dependencies(test_1  ${catkin_EXPORTED_TARGETS})
+
+
+
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
